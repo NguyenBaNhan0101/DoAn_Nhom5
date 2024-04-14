@@ -5,7 +5,7 @@
 
 ## Members
 
-Nguyễn Bá Nhân - 2080600041
-Huỳnh Quang Dũng - 
-Nhan Vĩ Kiệt - 
-Phan Thanh Tuấn - 
+Nguyễn Bá Nhân - 2080600041 <br>
+Huỳnh Quang Dũng -  <br>
+Nhan Vĩ Kiệt -  <br>
+Phan Thanh Tuấn -  <br>
