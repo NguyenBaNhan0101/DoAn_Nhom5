@@ -10,7 +10,7 @@ Dự án web bán cây là một nền tảng thương mại điện tử cho ph
 
 - Nguyễn Bá Nhân - 2080600041 <br>
 - Huỳnh Quang Dũng -  <br>
-- Nhan Vĩ Kiệt -  <br>
+- Nhan Vĩ Kiệt -  2080600419
 - Phan Thanh Tuấn -  <br>
 
 ## ✨ Tính Năng
