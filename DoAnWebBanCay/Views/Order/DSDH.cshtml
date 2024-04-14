@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DoAnWebBanCay.Models.DonHang>
+@{
+    ViewBag.Title = "Lịch sử đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lịch sử đơn hàng</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Mã đơn hàng</th>
+        <th>Tài Khoản</th>
+        <th>Số lượng sản phẩm</th>
+        <th>Tổng tiền</th>
+        <th>Ngày đặt</th>
+        <th>Tình trạng</th>
+        <td></td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaDonHang</td>
+            <td>@item.UserName</td>
+            <td>@item.SoLuong</td>
+            <td>@String.Format("{0:0,0}", @item.TongThanh) ₫</td>
+            <td>@item.NgayDat</td>
+            @if (@item.TrangThai == "Đã xác nhận")
+            {
+                <td>@item.TrangThai và đang chuẩn bị hàng</td>
+            }
+            else
+            {
+                <td>@item.TrangThai</td>
+            }
+            <td><a href="~/Order/View/@item.MaDonHang" class="btn btn-sm btn-success">Xem</a></td>
+        </tr>
+    }
+</table>

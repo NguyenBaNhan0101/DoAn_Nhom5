@@ -1,0 +1,128 @@
+﻿@model PagedList.IPagedList<DoAnWebBanCay.Models.DonHang>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Danh Sách Đơn Hàng";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/cssadmin.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản lý đơn hàng</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/admin/Home/Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Danh sách đơn hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách đơn hàng</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4">
+                    @using (Html.BeginForm("DSDonHang", "Order", FormMethod.Get, new { }))
+                    {
+                        <div class="input-group input-group-sm">
+                            @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+                            @*<input type="text" name="searchtext" class="form-control">*@
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Tài Khoản</th>
+                        <th>Số lượng sản phẩm</th>
+                        <th>Tổng tiền</th>
+                        <th>Ngày đặt</th>
+                        <th>Tình trạng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.MaDonHang</td>
+                                <td>@item.UserName</td>
+                                <td>@item.SoLuong</td>
+                                <td>@String.Format("{0:0,0}", @item.TongThanh) ₫</td>
+                                <td>@item.NgayDat</td>
+                                <td>@item.TrangThai</td>
+                                <td>
+                                    <a href="~/admin/Order/View/@item.MaDonHang" class="btn btn-sm btn-success">Xem</a>
+                                    @if (@item.TrangThai != "Đã xác nhận")
+                                    {
+                                        <button class="btn btn-sm btn-danger btnXacNhan" data-id="@item.MaDonHang">Xác nhận</button>
+                                    }
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+
+            @*<div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-6" style="text-align:right;">
+                        @Html.PagedListPager(Model, page => Url.Action("DSDonHang", new { page }))
+                    </div>
+                </div>*@
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+
+    <script>
+        $(document).ready(function () {
+            $('.btnXacNhan').click(function (e) {
+                var orderId = $(this).data('id');
+                var conf = confirm('Bạn có muốn xác nhận đơn này không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/admin/Order/ConfirmOrder',
+                        type: 'POST',
+                        data: { orderId: orderId, action: 'update' },
+                        success: function (response) {
+                            if (response.success) {
+                                alert("Xác nhận đơn hàng thất bại!");
+                            } else {
+                                alert("Xác nhận đơn hàng thành công!");
+                                location.reload(true);
+                            }
+                        },
+                        error: function () {
+                            alert("Đã xảy ra lỗi trong quá trình xử lý.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>

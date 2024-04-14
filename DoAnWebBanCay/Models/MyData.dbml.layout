@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 11.25" name="MyData">
+  <DataContextMoniker Name="/MyDataDataContext" />
+  <nestedChildShapes>
+    <classShape Id="29069573-4760-40de-8cf7-fff4ce87f8f2" absoluteBounds="1.5, 4, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/MyDataDataContext/AspNetRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0ded618c-9356-44ca-a042-d1445602d754" absoluteBounds="1.5150000000000001, 4.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c9d221a7-4d0d-4024-b9af-4c1896653283" absoluteBounds="1.5, 2.125, 2, 1.193992513020834">
+      <DataClassMoniker Name="/MyDataDataContext/AspNetUserRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2a23b791-369f-45a4-ba68-8d1aa4308146" absoluteBounds="1.5149999999999997, 2.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="40726888-a8c8-4be6-9657-123d57bb5ff5" absoluteBounds="6, 2, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/MyDataDataContext/AspNetUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="26c6d536-5f4a-4e72-a8e7-beaeab0a9344" absoluteBounds="6.0150000000000006, 2.46, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 4); (2.5 : 3.31899251302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MyDataDataContext/AspNetRole/AspNetRole_AspNetUserRole" />
+      <nodes>
+        <classShapeMoniker Id="29069573-4760-40de-8cf7-fff4ce87f8f2" />
+        <classShapeMoniker Id="c9d221a7-4d0d-4024-b9af-4c1896653283" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6 : 2.72199625651042); (3.5 : 2.72199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MyDataDataContext/AspNetUser/AspNetUser_AspNetUserRole" />
+      <nodes>
+        <classShapeMoniker Id="40726888-a8c8-4be6-9657-123d57bb5ff5" />
+        <classShapeMoniker Id="c9d221a7-4d0d-4024-b9af-4c1896653283" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="bb02642f-b325-4f44-9eda-802292d5847a" absoluteBounds="0.5, 6.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/MyDataDataContext/LoaiCay" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bf5558ab-bdc1-47c7-b201-af2e595848bb" absoluteBounds="0.515, 6.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="32e39549-c187-4322-bdb8-072012dff7de" absoluteBounds="3.25, 9, 2, 1.9631982421875">
+      <DataClassMoniker Name="/MyDataDataContext/ChiTietDonHang" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e6781c52-13d7-4105-b0a7-a4f606bee42b" absoluteBounds="3.2649999999999997, 9.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e780be56-d304-4dca-9801-6dfb52e473fb" absoluteBounds="3.25, 6.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/MyDataDataContext/Cay" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6366140d-4b99-4264-a3ed-67107ee1ff4d" absoluteBounds="3.2649999999999997, 6.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.25 : 8.40549967447917); (4.25 : 9)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MyDataDataContext/Cay/Cay_ChiTietDonHang" />
+      <nodes>
+        <classShapeMoniker Id="e780be56-d304-4dca-9801-6dfb52e473fb" />
+        <classShapeMoniker Id="32e39549-c187-4322-bdb8-072012dff7de" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 6.84699625651042); (3.25 : 6.84699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MyDataDataContext/LoaiCay/LoaiCay_Cay" />
+      <nodes>
+        <classShapeMoniker Id="bb02642f-b325-4f44-9eda-802292d5847a" />
+        <classShapeMoniker Id="e780be56-d304-4dca-9801-6dfb52e473fb" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0886cbc5-7ff5-4524-9de1-0a5e6a934159" absoluteBounds="6.875, 6.375, 2, 2.5401025390625">
+      <DataClassMoniker Name="/MyDataDataContext/DonHang" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2e2ab278-085c-4e0c-98da-b05d360a7bcd" absoluteBounds="6.89, 6.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.875 : 8.9151025390625); (7.875 : 9.98159912109375); (5.25 : 9.98159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MyDataDataContext/DonHang/DonHang_ChiTietDonHang" />
+      <nodes>
+        <classShapeMoniker Id="0886cbc5-7ff5-4524-9de1-0a5e6a934159" />
+        <classShapeMoniker Id="32e39549-c187-4322-bdb8-072012dff7de" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.4375 : 5.30930826822917); (7.4375 : 6.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MyDataDataContext/AspNetUser/AspNetUser_DonHang" />
+      <nodes>
+        <classShapeMoniker Id="40726888-a8c8-4be6-9657-123d57bb5ff5" />
+        <classShapeMoniker Id="0886cbc5-7ff5-4524-9de1-0a5e6a934159" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

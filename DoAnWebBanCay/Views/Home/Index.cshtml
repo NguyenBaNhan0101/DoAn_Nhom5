@@ -1,0 +1,199 @@
+﻿@model PagedList.IPagedList<DoAnWebBanCay.Models.Cay>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Tree Garden";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<link href="~/Content/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/animate.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link type="text/css" href="~/Content/assets/styles/categories_styles.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+
+
+<div id="carousel-example-generic" class="carousel slide center-block" data-ride="carousel" style="width:900px">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Content/images/banner4.jpg" alt="..." style="height: 350px; width: 900px" class="center-block">
+        </div>
+        <div class="item">
+            <img src="~/Content/images/banner5.jpg" alt="..." style="height: 350px; width: 900px" class="center-block">
+        </div>
+        <div class="item">
+            <img src="~/Content/images/banner6.jpg" alt="..." style="height:350px; width:900px" class="center-block">
+        </div>
+    </div>
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+<p></p>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+<div @*class="container product_section_container"*@>
+    <div class="row">
+        <h3><strong>DANH SÁCH SẢN PHẨM</strong></h3>
+        <div class="col product_section clearfix">
+            <div class="sidebar">
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <p></p>
+                        <h4>Danh mục</h4>
+                    </div>
+                    <ul class="sidebar_categories">
+                        <li><a href="@Url.Action("Index", new { category = "Cây cảnh trong nhà" })">Cây cảnh trong nhà</a></li>
+                        <li><a href="@Url.Action("Index", new { category = "Cây cảnh văn phòng" })">Cây cảnh văn phòng</a></li>
+                        <li><a href="@Url.Action("Index", new { category = "Cây ngoài vườn" })">Cây ngoài vườn</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Lọc theo giá</h5>
+                    </div>
+                    <p>
+                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                    </p>
+                    <div id="slider-range"></div>
+                    <div class="filter_button"><span>Lọc</span></div>
+                </div>
+            </div>
+            <div class="main_content">
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="row">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="panel panel-default">
+                                            <div>
+                                                <a href="@Url.Action("Detail", "Cay", new { id = item.MaCay })">
+                                                    <p><img src="@item.HinhAnh" alt="hinh thumnail" width="150px" height="160px" class="center-block img-rounded"></p>
+                                                </a>
+                                            </div>
+                                            <div class="panel-body">
+                                                <h5>@item.TenCay</h5>
+                                                <p><strong>Giá: </strong>@String.Format("{0:0,0}", @item.GiaBan) ₫</p>
+                                                <p><strong>Số lượng tồn: </strong>@item.SoLuongTon</p>
+                                                <div class="pull-right">
+                                                    <div class="ChiTiet">
+                                                        <a class="btn btn-success" href="@Url.Action("Detail", "Cay",
+                                                        new { @id = item.MaCay, @strURL = Request.Url.ToString() })">Chi tiết</a>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-left">
+                                                    <div class="DatMua_btn">
+                                                        <a class="btn btn-primary" href="@Url.Action("ThemGioHang", "GioHang",
+                                                        new { @id = item.MaCay, @strURL = Request.Url.ToString() })">Đặt mua</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /
+        @Model.PageCount
+    </div>
+
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new
+        {
+            page,
+            currentFilter = ViewBag.CurremtFilter
+            //page = page
+        }))
+    </div>
+</div>
+
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+
+<style type="text/css">
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+    <style type="text/css" >
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+</style>
+
+<style>
+    .panel-default {
+        border-color: #ddd;
+    }
+
+    .panel {
+        margin-bottom: 20px;
+        background-color: #fcf8e3;
+    }
+</style>
+
+<style>
+    .panel-footer {
+        padding: 10px 15px;
+        background-color: #e2c799;
+        border-top: 1px solid #ddd;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+</style>
+
+<style>
+    .btn-success {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #000;
+    }
+</style>
+
+<style>
+    .btn-default {
+        color: #fff;
+        background-color: #5cb85c;
+        border-color: #000;
+    }
+</style>
+
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>

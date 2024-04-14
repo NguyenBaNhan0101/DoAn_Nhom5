@@ -1,0 +1,84 @@
+﻿@model IEnumerable<DoAnWebBanCay.Models.GioHang>
+
+@{
+    ViewBag.Title = "Đặt Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ĐẶT HÀNG</h2>
+<table class="table">
+    <tr>
+        <th>
+            Tài Khoản
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenCay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HinhAnh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.giaban)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soluong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThanhTien)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @User.Identity.Name
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenCay)
+            </td>
+            <td>
+                <img src="@item.HinhAnh" alt="anh cay" width="150" height="160" />
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.giaban)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.soluong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThanhTien)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>*@
+            @using (Html.BeginForm("CapNhatGioHang", "Giohang", new { @id = item.MaCay }))
+            {
+                <td>
+                    @String.Format("{0:0,0}", item.giaban) ₫
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.soluong)
+                </td>
+                <td>
+                    @String.Format("{0:0,0}", item.ThanhTien) ₫
+                </td>
+            }
+        </tr>
+
+    }
+    <tr style="font-weight:bold; text-align:left; color:red">
+        <td colspan="2">Số lượng cây: @ViewBag.Tongsoluong</td>
+        <td colspan="2">Số loại cây: @ViewBag.Tongsoluongsp</td>
+        <td colspan="3">Tổng tiền: @String.Format("{0:0,0}", ViewBag.Tongtien) VNĐ</td>
+    </tr>
+    <tr style="font-weight:bold; text-align:right">
+        <td colspan="7">@Html.ActionLink("Xác Nhận", "XacnhanDonhang", "GioHang")</td>
+    </tr>
+    <tr style="font-weight:bold; text-align:right">
+        <td colspan="7">@Html.ActionLink("Trở về giỏ hàng", "Giohang", "GioHang")</td>
+    </tr>
+</table>

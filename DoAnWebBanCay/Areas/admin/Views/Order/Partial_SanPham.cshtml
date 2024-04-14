@@ -1,0 +1,30 @@
+﻿@model IEnumerable<DoAnWebBanCay.Models.ChiTietDonHang>
+@if (Model != null && Model.Any())
+{
+    int i = 1;
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Tổng tiền</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.TenCay</td>
+                    <td>@item.Soluong</td>
+                    <td>@String.Format("{0:0,0}", @item.GiaTien) ₫</td>
+                    <td>@String.Format("{0:0,0}", item.GiaTien * item.Soluong) ₫</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}

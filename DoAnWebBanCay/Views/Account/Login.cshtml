@@ -1,0 +1,131 @@
+﻿@*@using DoAnWebBanCay.Models
+    @model LoginViewModel*@
+@model DoAnWebBanCay.Models.LoginViewModel
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<link href="~/Content/assets/styles/main_styles.css" rel="stylesheet" />
+<div class="card-body login-card-body">
+    <p class="login-box-msg">Đăng nhập để bắt đầu</p>
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true);
+        <div class="input-group mb-3">
+            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Tài khoản" })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                </div>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="icheck-primary">
+                    @Html.CheckBoxFor(x => x.RememberMe)
+                    <label for="remember">
+                        Ghi nhớ đăng nhập?
+                    </label>
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+            </div>
+            <!-- /.col -->
+        </div>
+    }
+
+
+    <!-- /.social-auth-links -->
+
+    <p class="mb-1">
+        @Html.ActionLink("Quên mật khẩu ?", "ForgotPassword")
+    </p>
+    <p class="mb-0">
+        @Html.ActionLink("Đăng ký tài khoản", "Register")
+    </p>
+</div>
+@*<h2>@ViewBag.Title</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="UserName">Tài khoản</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="Password">Mật khẩu</label>
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <label for="RememberMe">Ghi nhớ đăng nhập?</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Đăng nhập" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Đăng ký", "Register")
+                    </p>
+                    <p>
+                        @Html.ActionLink("Quên mật khẩu ?", "ForgotPassword")
+                    </p>
+                }
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+
+    <style>
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 0;
+            border-top: 1px solid #000;
+        }
+    </style>
+
+    <style>
+        .btn-default {
+            color: #fff;
+            background-color: #286090;
+            border-color: #000;
+        }
+    </style>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+

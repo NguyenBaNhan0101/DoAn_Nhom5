@@ -1,0 +1,89 @@
+﻿@model DoAnWebBanCay.Models.Cay
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Thông tin chi tiết cây</h2>
+        </div>
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                <dl class="dl-horizontal">
+                    <dt>
+                        Mã loại
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaLoai)
+                    </dd>
+
+                    <dt>
+                        Tên cây
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TenCay)
+                    </dd>
+
+                    <dt>
+                        Hình
+                    </dt>
+
+                    <dd>
+                        @*@Html.DisplayFor(model => model.HinhAnh)*@
+                        <img src="@Model.HinhAnh" width="200px" height="200px" />
+                    </dd>
+
+                    <dt>
+                        Giá bán
+                    </dt>
+
+                    <dd>
+                        @String.Format("{0:0,0}", Model.GiaBan) ₫
+                    </dd>
+
+                    <dt>
+                        Số lượng tồn
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SoLuongTon)
+                    </dd>
+
+                    <dt>
+                        Mô tả
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MoTa)
+                    </dd>
+                </dl>
+                <!-- your steps content here -->
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<div>
+    <hr />
+</div>
+<a class="btn btn-primary" href="@Url.Action("ThemGioHang", "GioHang",
+                            new { @id = Model.MaCay, @strURL = Request.Url.ToString() })">Đặt mua</a>
+<a href="~/Home/Index" class="btn btn-danger">Quay lại</a>
+@*<p class="btn btn-danger">
+        @Html.ActionLink("Back to List", "Index", "Home")
+    </p>*@

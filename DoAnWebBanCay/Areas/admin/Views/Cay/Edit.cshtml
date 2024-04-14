@@ -1,0 +1,132 @@
+﻿@model DoAnWebBanCay.Models.Cay
+@{
+    ViewBag.Title = "Cập nhật sản phẩm";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+    <link href="~/Content/cssadmin.css" rel="stylesheet" />
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Cập nhật sản phẩm</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/admin/Home/Index">Trang chủ</a></li>
+                        <li class="breadcrumb-item active"><a href="/admin/Cay/DSCay">Danh sách sản phẩm</a></li>
+                        <li class="breadcrumb-item active">Cập nhật sản phẩm</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Thông tin sản phẩm</h3>
+            </div>
+            <div class="card-body">
+                <div class="bs-stepper-content">
+                    @using (Html.BeginForm("Edit", "Cay", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label>Mã loại</label>
+                            @Html.TextBoxFor(model => model.MaLoai, new { @class = "form-control", @placeholder = "Mã loại" })
+                            @Html.ValidationMessageFor(model => model.MaLoai, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Tên cây</label>
+                            @Html.TextBoxFor(model => model.TenCay, new { @class = "form-control", @placeholder = "Tên cây" })
+                            @Html.ValidationMessageFor(model => model.TenCay, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Hình ảnh</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    @Html.TextBoxFor(model => model.HinhAnh, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-group-append">
+                                    <input type="file" name="fileUpload" id="fileUpload" accept="image/*"
+                                           style="display:none;" />
+                                    <input type="button" id="btnUpload" value="Chọn" />
+                                </div>
+                            </div>
+                        </div>
+                        @section upload
+                        {
+                            <script>
+                                $(function () {
+                                    $('#btnUpload').click(function () {
+                                        $('#fileUpload').trigger('click');
+                                    });
+                                });
+                                $('#fileUpload').change(function () {
+                                    if (window.FormData !== undefined) {
+                                        var fileUpload = $('#fileUpload').get(0);
+                                        var files = fileUpload.files;
+                                        var formData = new FormData();
+                                        formData.append('file', files[0]);
+                                        $.ajax(
+                                            {
+                                                type: 'POST',
+                                                url: '/admin/Cay/ProcessUpload',
+                                                contentType: false,
+                                                processData: false,
+                                                data: formData,
+                                                success: function (urlImage) {
+
+                                                    $('#pictureUpload').attr('src', urlImage);
+                                                    $('#HinhAnh').val(urlImage);
+                                                },
+                                                error: function (err) {
+                                                    alert('Error ', err.statusText);
+                                                }
+                                            });
+                                    }
+                                });
+                            </script>
+                        }
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Giá bán</label>
+                                    @Html.TextBoxFor(model => model.GiaBan, new { @class = "form-control", @placeholder = "Giá bán" })
+                                    @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Số lượng tồn</label>
+                                    @Html.TextBoxFor(model => model.SoLuongTon, new { @class = "form-control", @placeholder = "Số lượng tồn" })
+                                    @Html.ValidationMessageFor(model => model.SoLuongTon, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mô tả</label>
+                            @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", @placeholder = "Mô tả" })
+                            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                        </div>
+                        <a href="~/admin/Cay/DScay" class="btn btn-danger">Quay lại</a>
+                        <button type="submit" value="Create" class="btn btn-primary">Lưu</button>
+                    </div>
+
+                    }
+                    <!-- your steps content here -->
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+
+            </div>
+            <!-- /.card-footer-->
+        </div>
+        <!-- /.card -->
+    </section>

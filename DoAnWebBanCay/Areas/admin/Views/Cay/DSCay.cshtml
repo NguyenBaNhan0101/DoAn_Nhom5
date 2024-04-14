@@ -1,0 +1,130 @@
+﻿@model PagedList.PagedList<DoAnWebBanCay.Models.Cay>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách cây";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/cssadmin.css" rel="stylesheet" />
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản lý sản phẩm</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/admin/Home/Index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách sản phẩm</h3>
+
+            <div class="card-tools">
+                <a href="~/admin/Cay/Add" class="btn btn-primary">Thêm mới</a>
+                @*<a href="#" class="btn btn-danger" id="btnDeleteAll">Xóa</a>*@
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4">
+                    @using (Html.BeginForm("DSCay", "Cay", FormMethod.Get, new { }))
+                    {
+                        <div class="input-group input-group-sm">
+                            @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+                            @*<input type="text" name="searchtext" class="form-control">*@
+                            <span class="input-group-append">
+                                <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th> Mã loại </th>
+                        <th> Tên cây</th>
+                        <th> Hình ảnh </th>
+                        <th> Giá bán</th>
+                        <th> Số lượng tồn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@Html.DisplayFor(modelItem => item.MaLoai)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TenCay)</td>
+                                <td><img src="@item.HinhAnh" alt="hinh thumbnail" width="100px" height="100px" /></td>
+                                <td>@String.Format("{0:0,0}", @item.GiaBan) ₫</td>
+                                <td>@Html.DisplayFor(modelItem => item.SoLuongTon)</td>
+                                <td>
+                                    <a href="/admin/Cay/Edit/@item.MaCay" class="btn btn-sm btn-primary">Sửa</a>
+                                    <a href="#" data-id="@item.MaCay" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">Không có sản phẩm nào!</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("DSCay", new { page }))
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn có muốn sản phẩm này không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/admin/Cay/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#throw_' + id).remove();
+                            }
+                            window.location.reload(true);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
